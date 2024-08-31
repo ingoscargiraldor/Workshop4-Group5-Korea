@@ -12,7 +12,7 @@ const openaiService = new OpenAIService(process.env.OPENAI_API_KEY);
 
 app.use(express.json());
 
-const uri = "mongodb+srv://admin:admin@workshop.naubp.mongodb.net/data-privacy-vault?retryWrites=true&w=majority";
+const uri = "mongodb+srv://tu_usuario:tu_password@workshop.naubp.mongodb.net/data-privacy-vault?retryWrites=true&w=majority";
 
 // Esquema y modelo de Mongoose
 const tokenSchema = new mongoose.Schema({
