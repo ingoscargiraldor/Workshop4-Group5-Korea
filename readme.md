@@ -14,6 +14,7 @@ Este proyecto es un "Data Privacy Vault" que permite anonimizar información per
 - MongoDB Atlas (u otra base de datos MongoDB accesible)
 - Una cuenta de OpenAI con una clave API válida
 
+```plaintext
 data-privacy-vault/
 │
 ├── node_modules/
@@ -29,21 +30,23 @@ data-privacy-vault/
 ├── package.json
 ├── promps.txt
 └── readme.dm
+```
 
-Descripción de los archivos:
+## Descripción de los Archivos
 
-node_modules/: Directorio que contiene los módulos y dependencias de Node.js.
-.dockerignore: Archivo que indica a Docker qué archivos o directorios deben ser ignorados al construir la imagen Docker.
-.env: Archivo que contiene las variables de entorno, tales como las credenciales para servicios externos.
-Dockerfile: Archivo utilizado para crear una imagen Docker para el proyecto.
-index_Dockerfile.js: Archivo JavaScript que es utilizado dentro del contenedor Docker.
-index.js: Archivo principal de la aplicación, fuera del contenedor.
-mogosee.js: Archivo JavaScript, posiblemente relacionado con MongoDB.
-openaiService.js: Archivo que probablemente contiene la lógica para interactuar con la API de OpenAI.
-package-lock.json: Archivo que contiene la información exacta de las versiones de las dependencias instaladas.
-package.json: Archivo que define las dependencias del proyecto y otra información relevante como scripts de npm.
-promps.txt: Archivo de texto, posiblemente para almacenar prompts o comandos utilizados en el proyecto.
-readme.dm: Archivo README del proyecto (parece tener una extensión no estándar, podría ser un error tipográfico).
+- **node_modules/**: Directorio que contiene los módulos y dependencias de Node.js.
+- **.dockerignore**: Archivo que indica a Docker qué archivos o directorios deben ser ignorados al construir la imagen Docker.
+- **.env**: Archivo que contiene las variables de entorno, tales como las credenciales para servicios externos.
+- **Dockerfile**: Archivo utilizado para crear una imagen Docker para el proyecto.
+- **index_Dockerfile.js**: Archivo JavaScript que es utilizado dentro del contenedor Docker.
+- **index.js**: Archivo principal de la aplicación, fuera del contenedor.
+- **mogosee.js**: Archivo JavaScript, posiblemente relacionado con MongoDB.
+- **openaiService.js**: Archivo que probablemente contiene la lógica para interactuar con la API de OpenAI.
+- **package-lock.json**: Archivo que contiene la información exacta de las versiones de las dependencias instaladas.
+- **package.json**: Archivo que define las dependencias del proyecto y otra información relevante como scripts de npm.
+- **promps.txt**: Archivo de texto, posiblemente para almacenar prompts o comandos utilizados en el proyecto.
+- **readme.dm**: Archivo README del proyecto (parece tener una extensión no estándar, podría ser un error tipográfico).
+
 
 ## Instalación
 
@@ -148,13 +151,14 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para má
 
 ## Ejemplos de salida
 
+```bash
 oscargiraldor@OscarGiraldo:~/workshop4/data-privacy-vault/data-privacy-vault$ curl -X POST http://localhost:3001/secureChatGPT \
 -H "Content-Type: application/json" \
 -d '{"prompt":"Mi nombre es Dago Borda. Ayer tuve un problema con mi computadora, y hoy quiero saber cómo puedo evitar que vuelva a suceder. Mi email es dborda@gmail.com."}'
 {"response":"Hola, Dago Borda. Para evitar que vuelva a suceder un problema con tu computadora, te recomendaría seguir estos consejos:\n\n1. Mantén tu computadora actualizada: Asegúrate de instalar las actualizaciones de software y de sistema operativo de manera regular para evitar posibles vulnerabilidades.\n\n2. Utiliza un buen software antivirus: Instala un antivirus confiable y realiza escaneos periódicos para detectar y eliminar posibles amenazas.\n\n3. Realiza copias de seguridad de manera regular: Guarda tus archivos importantes en un disco duro externo o en la nube para evitar perder información en caso de un fallo del sistema."}oscargiraldor@OscarGirald
 oscargiraldor@OscarGiraldo:~/workshop4/data-privacy-vault/data-privacy-vault$ 
-
-
+```
+```bash
 Prompt anonimizado: Mi nombre es NAME_eff77e0ba0cd. Ayer tuve un problema con mi computadora, y hoy quiero saber cómo puedo evitar que vuelva a suceder. Mi email es EMAIL_a63a68553e54.
 Respuesta completa de OpenAI: {
   id: 'chatcmpl-A2NsBpHzafNTqYYem9pIys09bhbMw',
@@ -186,11 +190,11 @@ Respuesta desanonimizada: Hola, Dago Borda. Para evitar que vuelva a suceder un 
 2. Utiliza un buen software antivirus: Instala un antivirus confiable y realiza escaneos periódicos para detectar y eliminar posibles amenazas.
 
 3. Realiza copias de seguridad de manera regular: Guarda tus archivos importantes en un disco duro externo o en la nube para evitar perder información en caso de un fallo del sistema.
-
+```
 
 ## Datos de MongoDB
 
-
+```bash
 _id
 66d11eab233e1c55079e2db1
 info
@@ -207,9 +211,6 @@ token
 "061ce120"
 __v
 0
-
-
-
 
 
 _id
@@ -244,19 +245,24 @@ token
 "PHONE_fa1b5f18455f"
 __v
 0
+```
 
 ## Adicional
 
-Dockerización del Proyecto
+## Dockerización del Proyecto
+
 Para facilitar la implementación y el despliegue, puedes dockerizar este proyecto siguiendo estos pasos:
-Paso 1: Instalar Docker
+
+### Paso 1: Instalar Docker
+
 Asegúrate de tener Docker instalado en tu sistema. Si no lo tienes, descárgalo e instálalo desde docker.com.
-Paso 2: Crear un Dockerfile
 
-En la raíz de tu proyecto, crea un archivo llamado Dockerfile (sin extensión).
-Añade lo siguiente al Dockerfile:
+### Paso 2: Crear un Dockerfile
 
-dockerfileCopyFROM node:18
+En la raíz de tu proyecto, crea un archivo llamado `Dockerfile` (sin extensión). Añade lo siguiente al Dockerfile:
+
+```dockerfile
+FROM node:18
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
@@ -264,58 +270,90 @@ COPY index_Dockerfile.js ./index.js
 COPY openaiService.js ./
 EXPOSE 3001
 CMD ["node", "index.js"]
-Paso 3: Crear un archivo .dockerignore
+```
 
-Crea un archivo .dockerignore en la raíz del proyecto.
-Añade lo siguiente al archivo:
+### Paso 3: Crear un archivo `.dockerignore`
 
-Copynode_modules
+Crea un archivo `.dockerignore` en la raíz del proyecto. Añade lo siguiente al archivo:
+
+```plaintext
+node_modules
 npm-debug.log
 index.js
 .env
-Paso 4: Configurar index_Dockerfile.js
-Asegúrate de que index_Dockerfile.js use variables de entorno para la conexión a MongoDB y la clave API de OpenAI:
-javascriptCopyconst uri = process.env.MONGODB_URI;
+```
+
+### Paso 4: Configurar `index_Dockerfile.js`
+
+Asegúrate de que `index_Dockerfile.js` use variables de entorno para la conexión a MongoDB y la clave API de OpenAI:
+
+```javascript
+const uri = process.env.MONGODB_URI;
 const openaiApiKey = process.env.OPENAI_API_KEY;
-Paso 5: Construir la imagen Docker
+```
+
+### Paso 5: Construir la imagen Docker
+
 Ejecuta en la terminal:
-bashCopydocker build -t data-privacy-vault .
-Paso 6: Crear un archivo .env
-Crea un archivo .env en la raíz de tu proyecto con las variables de entorno necesarias:
-CopyMONGODB_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster.mongodb.net/data-privacy-vault?retryWrites=true&w=majority
+
+```bash
+docker build -t data-privacy-vault .
+```
+
+### Paso 6: Crear un archivo `.env`
+
+Crea un archivo `.env` en la raíz de tu proyecto con las variables de entorno necesarias:
+
+```plaintext
+MONGODB_URI=mongodb+srv://tu_usuario:tu_contraseña@tu_cluster.mongodb.net/data-privacy-vault?retryWrites=true&w=majority
 OPENAI_API_KEY=tu_clave_api_de_openai
+```
+
 Reemplaza los valores con tus credenciales reales.
-Paso 7: Ejecutar el contenedor
+
+### Paso 7: Ejecutar el contenedor
+
 Para ejecutar el contenedor de forma segura, utiliza el siguiente comando:
-bashCopydocker run -p 3001:3001 --env-file .env data-privacy-vault
-Este comando usa el archivo .env para pasar las variables de entorno al contenedor de forma segura.
-Paso 8: Verificar la aplicación
+
+```bash
+docker run -p 3001:3001 --env-file .env data-privacy-vault
+```
+
+Este comando usa el archivo `.env` para pasar las variables de entorno al contenedor de forma segura.
+
+### Paso 8: Verificar la aplicación
+
 Visita http://localhost:3001 en tu navegador para ver la aplicación en funcionamiento.
-Notas importantes:
 
-El Dockerfile ahora no copia el archivo .env al contenedor, mejorando la seguridad.
-Asegúrate de que index_Dockerfile.js esté configurado correctamente para usar las variables de entorno.
-Nunca comitas el archivo .env en tu sistema de control de versiones. Añádelo a tu .gitignore.
-Configura MongoDB Atlas para permitir conexiones desde la IP del contenedor Docker.
-En un entorno de producción, considera usar servicios de gestión de secretos en lugar de archivos .env.
+## Notas importantes
 
-Próximos pasos
+- El Dockerfile ahora no copia el archivo `.env` al contenedor, mejorando la seguridad.
+- Asegúrate de que `index_Dockerfile.js` esté configurado correctamente para usar las variables de entorno.
+- Nunca comitas el archivo `.env` en tu sistema de control de versiones. Añádelo a tu `.gitignore`.
+- Configura MongoDB Atlas para permitir conexiones desde la IP del contenedor Docker.
+- En un entorno de producción, considera usar servicios de gestión de secretos en lugar de archivos `.env`.
 
-Aprende sobre Docker Compose para manejar múltiples contenedores.
-Investiga las mejores prácticas de seguridad para contenedores Docker en producción.
-Considera usar un servicio de registro de contenedores para despliegues en la nube.
+## Próximos pasos
 
+- Aprende sobre Docker Compose para manejar múltiples contenedores.
+- Investiga las mejores prácticas de seguridad para contenedores Docker en producción.
+- Considera usar un servicio de registro de contenedores para despliegues en la nube.
 
+```bash
 oscargiraldor@OscarGiraldo:~/workshop4/data-privacy-vault/data-privacy-vault$ sudo docker ps
 CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 242001c28303   data-privacy-vault   "docker-entrypoint.s…"   8 minutes ago   Up 8 minutes   0.0.0.0:3001->3001/tcp, :::3001->3001/tc
+```
 
-
+## Petición
+```bash
 oscargiraldor@OscarGiraldo:~/workshop4/data-privacy-vault/data-privacy-vault$ curl -X POST http://localhost:3001/secureChatGPT -H "Content-Type: application/json" -d '{"prompt":"Mi nombre es Dago Borda. Ayer tuve un problema con mi mascota, y hoy quiero saber cómo puedo evitar que vuelva a suceder. Mi email es dborda@gmail.c
 om."}'
+
 {"response":"Lamento escuchar que tuviste un problema con tu mascota. Para evitar que vuelva a suceder, te recomendaría analizar las posibles causas del incidente y tomar medidas preventivas. Algunas sugerencias para evitar futuros problemas con tu mascota podrían ser:\n\n- Asegurarte de que tu mascota tenga suficiente ejercicio y estimulación mental para evitar comportamientos no deseados.\n- Proporcionarle un ambiente seguro y adecuado para su tamaño y necesidades.\n- Implementar un entrenamiento adecuado para corregir comportamientos no deseados.\n- Consultar con un veterinario o un entrenador profesional si tienes dudas sobre el comport"}oscargiraldor@OscarGiraldo:~/workshop4/data-privacy-vault/data-privacy-vault$ 
-
-
+```
+## Log del contenedor
+```bash
 Prompt anonimizado: Mi nombre es NAME_eff77e0ba0cd. Ayer tuve un problema con mi mascota, y hoy quiero saber cómo puedo evitar que vuelva a suceder. Mi email es EMAIL_a63a68553e54.
 Respuesta completa de OpenAI: {
   id: 'chatcmpl-A2Oijuo8AJnf7D3YflFz4HwcNGRc9',
@@ -345,3 +383,4 @@ Respuesta desanonimizada: Lamento escuchar que tuviste un problema con tu mascot
 - Proporcionarle un ambiente seguro y adecuado para su tamaño y necesidades.
 - Implementar un entrenamiento adecuado para corregir comportamientos no deseados.
 - Consultar con un veterinario o un entrenador profesional si tienes dudas sobre el comport
+```
